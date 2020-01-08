@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  volunteer: MyString
+  location: MyString
+  date: 2020-01-07
+  start: 2020-01-07 20:43:17
+  end: 2020-01-07 20:43:17
+
+two:
+  volunteer: MyString
+  location: MyString
+  date: 2020-01-07
+  start: 2020-01-07 20:43:17
+  end: 2020-01-07 20:43:17

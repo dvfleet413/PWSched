@@ -1,0 +1,33 @@
+<%= render 'navbar' %>
+
+<div class="container">
+  <h1>All Shifts</h1>
+
+  <table class="table">
+    <tr>
+      <th>Volunteer</th>
+      <th>Location</th>
+      <th>Date</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th colspan = "3"></th>
+    </tr>
+
+    <% @shifts.each do |shift| %>
+      <tr>
+        <td><%= shift.volunteer %></td>
+        <td><%= shift.location %></td>
+        <td><%= shift.date.strftime("%m/%d/%Y") %></td>
+        <td><%= shift.start.strftime("%l:%M %P") %></td>
+        <td><%= shift.end.strftime("%l:%M %P") %></td>
+        <td><%= link_to 'View', shift_path(shift) %></td>
+        <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
+        <td><%= link_to 'Delete', shift_path(shift),
+                method: :delete,
+                data: { confirm: 'Are you sure?' }%></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= link_to 'Add Shift', new_shift_path %>
+</div>

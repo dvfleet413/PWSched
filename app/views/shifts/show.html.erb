@@ -1,0 +1,30 @@
+<%= render 'navbar' %>
+
+<div class = "container">
+  <p>
+    <strong>Volunteer:</strong>
+    <%= @shift.volunteer %>
+  </p>
+
+  <p>
+    <strong>Location:</strong>
+    <%= @shift.location %>
+  </p>
+
+  <p>
+    <strong>Date:</strong>
+    <%= @shift.date.strftime("%m/%d/%Y") %>
+  </p>
+
+  <p>
+    <strong>Start Time:</strong>
+    <%= @shift.start.strftime("%l:%M %P") %>
+  </p>
+
+  <p>
+    <strong>End Time:</strong>
+    <%= @shift.end.strftime("%l:%M %P") %>
+  </p>
+
+  <%= link_to 'Back', shifts_path %>
+</div>
