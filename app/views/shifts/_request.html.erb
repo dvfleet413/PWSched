@@ -1,0 +1,45 @@
+<%= form_with(model: @shift, local: true) do |form| %>
+
+  <% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@shift.errors.count, "error") %> prohibited
+        this shift from being saved:
+      </h2>
+      <ul>
+        <% @shift.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :volunteer %><br>
+    <%= @shift[:volunteer] %>
+  </p>
+
+  <p>
+    <%= form.label :location %><br>
+    <%= @shift[:location] %>
+  </p>
+
+  <p>
+    <%= form.label :date %><br>
+    <%= @shift[:date].strftime("%m/%d/%Y") %>
+  </p>
+
+  <p>
+    <%= form.label :start %><br>
+    <%= @shift[:start].strftime("%l:%M %P") %>
+  </p>
+
+  <p>
+    <%= form.label :end %><br>
+    <%= @shift[:end].strftime("%l:%M %P") %>
+  </p>
+
+  <p>
+    <%= form.submit "Request Shift" %>
+  </p>
+  <% end %>

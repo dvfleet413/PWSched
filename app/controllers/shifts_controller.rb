@@ -29,6 +29,7 @@ end
 
 def update
   @shift = Shift.find(params[:id])
+  authorize @shift
 
   if @shift.update(shift_params)
     redirect_to @shift
@@ -39,9 +40,16 @@ end
 
 def destroy
   @shift = Shift.find(params[:id])
-  @shift.destroy
+  authorize @shift
 
-  redirect_to shifts_path
+  if @shift.destroy
+    flash[:notice] = "Shift was sucessfully deleted."
+    redirect_to @shift
+  else
+    flash.now[:alert] = "There was an error deleting the shift."
+    render :show
+  end
+
 end
 
 private

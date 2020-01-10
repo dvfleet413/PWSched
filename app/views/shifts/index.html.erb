@@ -17,17 +17,25 @@
       <tr>
         <td><%= shift.volunteer %></td>
         <td><%= shift.location %></td>
-        <td><%= shift.date.strftime("%m/%d/%Y") %></td>
+        <td><%= shift.date.strftime("%A %m/%d/%Y") %></td>
         <td><%= shift.start.strftime("%l:%M %P") %></td>
         <td><%= shift.end.strftime("%l:%M %P") %></td>
         <td><%= link_to 'View', shift_path(shift) %></td>
-        <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
-        <td><%= link_to 'Delete', shift_path(shift),
-                method: :delete,
-                data: { confirm: 'Are you sure?' }%></td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
+        <% elsif !current_user.admin? && shift.volunteer == "" %>
+          <td><%= link_to 'Request', edit_shift_path(shift) %></td>
+        <% end %>
+        <% if policy(shift).destroy? %>
+          <td><%= link_to 'Delete', shift_path(shift),
+                                    method: :delete,
+                                    data: { confirm: 'Are you sure?' }%></td>
+        <% end %>
       </tr>
     <% end %>
   </table>
 
-  <%= link_to 'Add Shift', new_shift_path %>
+  <% if policy(@shifts).new? %>
+    <%= link_to 'Add Shift', new_shift_path %>
+  <% end %>
 </div>
