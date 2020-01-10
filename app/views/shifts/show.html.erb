@@ -26,6 +26,11 @@
     <%= @shift.end.strftime("%l:%M %P") %>
   </p>
 
+  <p>
+    <strong>Status:</strong>
+    <%= @shift.status %>
+  </p>
+
   <% if policy(@shift).destroy? %>
     <%= link_to 'Delete', shift_path(@shift),
           method: :delete,

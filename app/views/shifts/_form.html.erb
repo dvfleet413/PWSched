@@ -40,6 +40,15 @@
   </p>
 
   <p>
+    <%= form.radio_button(:status, "available")  %>
+    <%= form.label "Available"%>
+    <%= form.radio_button(:status, "requested") %>
+    <%= form.label "Requested"%>
+    <%= form.radio_button(:status, "assigned") %>
+    <%= form.label "Assigned"%>
+  </p>
+
+  <p>
     <%= form.submit %>
   </p>
   <% end %>

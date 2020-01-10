@@ -54,6 +54,6 @@ end
 
 private
   def shift_params
-    params.require(:shift).permit(:volunteer, :location, :date, :start, :end)
+    params.require(:shift).permit(:volunteer, :location, :date, :start, :end, :status)
   end
 end
