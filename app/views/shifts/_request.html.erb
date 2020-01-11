@@ -39,7 +39,9 @@
     <%= @shift[:end].strftime("%l:%M %P") %>
   </p>
 
+  <%= form.hidden_field :status, :value => "requested"%>
+
   <p>
-    <%= form.submit "Request Shift" %>
+    <%= form.submit "Here I am! Send me!" %>
   </p>
   <% end %>

@@ -48,6 +48,15 @@
     <%= form.label "Assigned"%>
   </p>
 
+  <% if @shift.request_by.length > 0 %>
+    <p>Requested By:</p>
+    <% @shift.request_by.each do |name| %>
+      <p><%= name %></p>
+    <% end %>
+  <% elsif @shift.request_by.length == 0 && @shift.status == "available" %>
+    <p>Nobody has requested this shift yet.</p>
+  <% end %>
+
   <p>
     <%= form.submit %>
   </p>

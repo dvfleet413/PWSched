@@ -10,6 +10,7 @@
       <th>Date</th>
       <th>Start Time</th>
       <th>End Time</th>
+      <th>Status</th>
       <th colspan = "3"></th>
     </tr>
 
@@ -20,6 +21,7 @@
         <td><%= shift.date.strftime("%A %m/%d/%Y") %></td>
         <td><%= shift.start.strftime("%l:%M %P") %></td>
         <td><%= shift.end.strftime("%l:%M %P") %></td>
+        <td><%= shift.status.capitalize %></td>
         <td><%= link_to 'View', shift_path(shift) %></td>
         <% if current_user.admin? %>
           <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
