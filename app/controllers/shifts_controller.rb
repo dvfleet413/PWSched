@@ -1,10 +1,10 @@
-require 'pry'
-
 class ShiftsController < ApplicationController
 before_action :authenticate_user!
 
+helper_method :sort_column, :sort_direction
+
 def index
-  @shifts = Shift.all
+  @shifts = Shift.order(sort_column + " " + sort_direction)
 end
 
 def show
@@ -27,7 +27,6 @@ def create
   else
     render 'new'
   end
-  binding.pry
 end
 
 def update
@@ -63,7 +62,7 @@ def add_request
   @shift[:status] = "requested" if @shift[:status] == "available"
 end
 
-def deny_dequest(shift, name)
+def deny_request(shift, name)
   request_list = shift[:request_by]
   index = request_list.index(name)
   request_list.delete_at(index)
@@ -73,5 +72,13 @@ end
 private
   def shift_params
     params.require(:shift).permit(:volunteer, :location, :date, :start, :end, :status, :congregation, {:request_by => []})
+  end
+
+  def sort_column
+    Shift.column_names.include?(params[:sort]) ? params[:sort] : "date"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
