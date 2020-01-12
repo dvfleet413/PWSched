@@ -1,24 +1,44 @@
-# README
+# PWSched (dotnet MVC)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+PWSched is a web app designed to help schedule volunteers participating in public witnessing activities.  The app is based on three simple steps:
 
-Things you may want to cover:
+1. Admin creates available shifts
+1. Volunteers request shifts
+1. Admin approves volunteers for each shift
 
-* Ruby version
+This version of PWSched is built using Ruby on Rails.
 
-* System dependencies
+## Getting Started
 
-* Configuration
+### Prerequisites
 
-* Database creation
+* Ruby
+* Rails
+* PostreSQL on local machine
 
-* Database initialization
+### Installing
 
-* How to run the test suite
+* Install ruby
+* Install rails
+* Install PostgreSQL on local machine
+* Fork and clone the repository
+* cd into project directory
+* In the project directory run `$ rails server`
+* Navigate to localhost:3000 in web browser
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## Built With
 
-* ...
+* Ruby on Rails
+* PostgreSQL
+
+## ToDo List
+
+This app is still in development.  The following tasks still need to be completed...
+* New users are set by default as volunteers, add ability to create a new congregation/create a new admin account
+* Improve styling
+
+
+## Author
+
+David Van Fleet [github.com/dvfleet413](github.com/dvfleet413) - Initial Work
