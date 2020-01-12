@@ -13,7 +13,7 @@
 
     <div class="field">
       <%= f.label :congregation %><br />
-      <%= f.text_field :congregation, autofocus: true %>
+      <%= f.select :congregation, Congregation.all.collect {|cong| cong[:name]} %>
     </div>
 
     <div class="field">

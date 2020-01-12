@@ -27,6 +27,7 @@ def create
   else
     render 'new'
   end
+  binding.pry
 end
 
 def update
@@ -71,6 +72,6 @@ end
 
 private
   def shift_params
-    params.require(:shift).permit(:volunteer, :location, :date, :start, :end, :status, {:request_by => []})
+    params.require(:shift).permit(:volunteer, :location, :date, :start, :end, :status, :congregation, {:request_by => []})
   end
 end

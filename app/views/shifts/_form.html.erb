@@ -48,6 +48,8 @@
     <%= form.label "Assigned"%>
   </p>
 
+  <%= form.hidden_field :congregation, :value => current_user[:congregation]%>
+
   <% if @shift.request_by.length > 0 %>
     <p>Requested By:</p>
     <% @shift.request_by.each do |name| %>
@@ -56,6 +58,10 @@
   <% elsif @shift.request_by.length == 0 && @shift.status == "available" %>
     <p>Nobody has requested this shift yet.</p>
   <% end %>
+
+
+  <% cong = current_user[:congregation]%>
+  <%= form.hidden_field :congregation, :value => cong %>
 
   <p>
     <%= form.submit %>
