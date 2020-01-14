@@ -36,7 +36,11 @@
   <% if @shift.request_by.length > 0 %>
     <h5>Requested By:</h5>
     <% @shift.request_by.each do |name| %>
-        <p><%= name %></p>
+      <div id="wrapper">
+        <div>
+          <%= name %>
+        </div>
+        <div>
         <% if current_user.admin? %>
           <%= form_with(model: @shift, local: true) do |form| %>
             <%= form.hidden_field :volunteer, :value => name %>
@@ -48,6 +52,7 @@
             <%= form.submit "Assign", :class => "btn btn-success" %>
           <% end %>
         <% end %>
+        </div>
     <% end %>
   <% elsif @shift.request_by.length == 0 && @shift.status == "available" %>
     <p>Nobody has requested this shift yet.</p>
