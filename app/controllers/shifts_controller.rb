@@ -1,10 +1,9 @@
 class ShiftsController < ApplicationController
 before_action :authenticate_user!
 
-helper_method :sort_column, :sort_direction
-
 def index
-  @shifts = Shift.order(sort_column + " " + sort_direction)
+  @search = Shift.search(params[:q])
+  @shifts = @search.result.page(params[:page]).per_page(5)
 end
 
 def show
@@ -74,11 +73,4 @@ private
     params.require(:shift).permit(:volunteer, :location, :date, :start, :end, :status, :congregation, {:request_by => []})
   end
 
-  def sort_column
-    Shift.column_names.include?(params[:sort]) ? params[:sort] : "date"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
 end

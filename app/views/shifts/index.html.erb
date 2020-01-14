@@ -1,16 +1,25 @@
 <%= render 'shared/navbar' %>
 
 <div class="container">
-  <h1>All Shifts</h1>
-
-  <table class="table">
+  <h1>Shifts</h1>
+  <%= search_form_for @search do |f| %>
+    <div class ="field">
+      <h4>Filter by:</h4>
+      <%= f.label :volunteer_cont, "Volunteer:" %>
+      <%= f.select :volunteer_cont, Shift.all.collect{|shift| shift[:volunteer]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
+      <%= f.label :location_cont, "Location:" %>
+      <%= f.select :location_cont, Shift.all.collect{|shift| shift[:location]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
+    </div>
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+  <table class="table table-hover table-striped table-responsive-xl">
     <tr>
-      <th><%= sortable "volunteer" %></th>
-      <th><%= sortable "location" %></th>
-      <th><%= sortable "date" %></th>
+      <th><%= sort_link @search, :volunteer, "Volunteer" %></th>
+      <th><%= sort_link @search, :loacation, "Location" %></th>
+      <th><%= sort_link @search, :date, "Date" %></th>
       <th>Start Time</th>
       <th>End Time</th>
-      <th>Status</th>
+      <th><%= sort_link @search, :status, "Status" %></th>
       <th colspan = "3"></th>
     </tr>
 
@@ -26,8 +35,12 @@
         <td><%= link_to 'View', shift_path(shift) %></td>
         <% if current_user.admin? %>
           <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
-        <% elsif !current_user.admin? && shift.volunteer == "" %>
-          <td><%= link_to 'Request', edit_shift_path(shift) %></td>
+        <% else %>
+          <% if shift.volunteer == "" %>
+            <td><%= link_to 'Request', edit_shift_path(shift) %></td>
+          <% else %>
+            <td></td>
+          <% end %>
         <% end %>
         <% if policy(shift).destroy? %>
           <td><%= link_to 'Delete', shift_path(shift),
@@ -38,6 +51,8 @@
     <% end %>
     <% end %>
   </table>
+
+  <%= will_paginate @shifts, :class => "apple_pagination"%>
 
   <% if policy(@shifts).new? %>
     <%= link_to 'Add Shift', new_shift_path %>
