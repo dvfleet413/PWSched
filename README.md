@@ -1,4 +1,4 @@
-# PWSched (dotnet MVC)
+# PWSched
 
 PWSched is a web app designed to help schedule volunteers participating in public witnessing activities.  The app is based on three simple steps:
 
