@@ -2,6 +2,7 @@
 
 <div class="container">
   <h1>Shifts</h1>
+  <div id="search-wrapper">
   <%= search_form_for @search do |f| %>
     <div class ="field">
       <h4>Filter by:</h4>
@@ -10,8 +11,9 @@
       <%= f.label :location_cont, "Location:" %>
       <%= f.select :location_cont, Shift.all.collect{|shift| shift[:location]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
     </div>
-    <div class="actions"><%= f.submit "Search" %></div>
+    <div class="actions"><%= f.submit "Search", :class => "btn btn-primary" %></div>
   <% end %>
+  </div>
   <table class="table table-hover table-striped table-responsive-xl">
     <tr>
       <th><%= sort_link @search, :volunteer, "Volunteer" %></th>
@@ -32,12 +34,12 @@
         <td><%= shift.start.strftime("%l:%M %P") %></td>
         <td><%= shift.end.strftime("%l:%M %P") %></td>
         <td><%= shift.status.capitalize %></td>
-        <td><%= link_to 'View', shift_path(shift) %></td>
+        <td><%= link_to 'View', shift_path(shift), :class => "btn btn-info" %></td>
         <% if current_user.admin? %>
-          <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
+          <td><%= link_to 'Edit', edit_shift_path(shift), :class => "btn btn-info" %></td>
         <% else %>
           <% if shift.volunteer == "" %>
-            <td><%= link_to 'Request', edit_shift_path(shift) %></td>
+            <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
           <% else %>
             <td></td>
           <% end %>
@@ -46,7 +48,7 @@
           <td><%= link_to 'Delete', shift_path(shift),
                                     method: :delete,
                                     data: { confirm: 'Are you sure?' },
-                                    :id => "delete"%></td>
+                                    :class => "btn btn-danger"%></td>
         <% end %>
       </tr>
     <% end %>
@@ -56,6 +58,6 @@
   <%= will_paginate @shifts, :class => "apple_pagination"%>
 
   <% if policy(@shifts).new? %>
-    <%= link_to 'Add Shift', new_shift_path %>
+    <%= link_to 'Add Shift', new_shift_path, :class => "btn btn-primary"%>
   <% end %>
 </div>

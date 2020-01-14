@@ -58,6 +58,7 @@ def add_request
   request_list = @shift[:request_by]
   volunteer = current_user[:name]
   request_list << volunteer
+  request_list.uniq!
   @shift[:status] = "requested" if @shift[:status] == "available"
 end
 

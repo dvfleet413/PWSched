@@ -6,6 +6,7 @@
   <% else %>
     <h1>Request Shift</h1>
   <% end %>
+<br>
 
 <% if current_user.admin? %>
   <%= render 'form' %>
@@ -14,5 +15,5 @@
 <% end %>
 
 
-  <%= link_to 'Back', shifts_path %>
+  <%= link_to 'Back to All Shifts', shifts_path %>
 </div>

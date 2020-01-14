@@ -14,34 +14,53 @@
     </div>
   <% end %>
 
+  <h5>
+    <%= form.label :volunteer %>
+  </h5>
   <p>
-    <%= form.label :volunteer %><br>
     <%= @shift[:volunteer] %>
   </p>
 
+  <h5>
+    <%= form.label :location %>
+  </h5>
   <p>
-    <%= form.label :location %><br>
     <%= @shift[:location] %>
   </p>
 
+  <h5>
+    <%= form.label :date %>
+  </h5>
   <p>
-    <%= form.label :date %><br>
     <%= @shift[:date].strftime("%m/%d/%Y") %>
   </p>
 
+  <h5>
+    <%= form.label :start %>
+  </h5>
   <p>
-    <%= form.label :start %><br>
     <%= @shift[:start].strftime("%l:%M %P") %>
   </p>
 
+  <h5>
+    <%= form.label :end %>
+  </h5>
   <p>
-    <%= form.label :end %><br>
     <%= @shift[:end].strftime("%l:%M %P") %>
   </p>
+
+  <% if @shift.request_by.length > 0 %>
+    <h5>Requested By:</h5>
+    <% @shift.request_by.each do |name| %>
+      <p><%= name %></p>
+    <% end %>
+  <% elsif @shift.request_by.length == 0 && @shift.status == "available" %>
+    <p>Nobody has requested this shift yet.</p>
+  <% end %>
 
   <%= form.hidden_field :status, :value => "requested"%>
 
   <p>
-    <%= form.submit "Here I am! Send me!" %>
+    <%= form.submit "Here I am! Send me!", :class => "btn btn-success" %>
   </p>
   <% end %>

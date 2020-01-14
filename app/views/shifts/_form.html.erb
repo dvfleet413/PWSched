@@ -14,28 +14,38 @@
     </div>
   <% end %>
 
+  <h5>
+    <%= form.label :volunteer %>
+  </h5>
   <p>
-    <%= form.label :volunteer %><br>
     <%= form.text_field :volunteer %>
   </p>
 
+  <h5>
+    <%= form.label :location %>
+  </h5>
   <p>
-    <%= form.label :location %><br>
     <%= form.text_field :location %>
   </p>
 
+  <h5>
+    <%= form.label :date %>
+  </h5>
   <p>
-    <%= form.label :date %><br>
     <%= form.date_select :date %>
   </p>
 
+  <h5>
+    <%= form.label :start %>
+  </h5>
   <p>
-    <%= form.label :start %><br>
     <%= form.time_select :start, {ampm: true, minute_step: 15} %>
   </p>
 
+  <h5>
+    <%= form.label :end %>
+  </h5>
   <p>
-    <%= form.label :end %><br>
     <%= form.time_select :end, {ampm: true, minute_step: 15} %>
   </p>
 
@@ -51,7 +61,7 @@
   <%= form.hidden_field :congregation, :value => current_user[:congregation]%>
 
   <% if @shift.request_by.length > 0 %>
-    <p>Requested By:</p>
+    <h5>Requested By:</h5>
     <% @shift.request_by.each do |name| %>
       <p><%= name %></p>
     <% end %>
@@ -64,6 +74,6 @@
   <%= form.hidden_field :congregation, :value => cong %>
 
   <p>
-    <%= form.submit %>
+    <%= form.submit :class => "btn btn-success"%>
   </p>
   <% end %>

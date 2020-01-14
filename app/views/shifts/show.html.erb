@@ -1,38 +1,40 @@
 <%= render 'shared/navbar' %>
 
 <div class = "container">
+  <h1>View Shift</h1>
+
   <p>
-    <strong>Volunteer:</strong>
+    <h5>Volunteer:</h5>
     <%= @shift.volunteer %>
   </p>
 
   <p>
-    <strong>Location:</strong>
+    <h5>Location:</h5>
     <%= @shift.location %>
   </p>
 
   <p>
-    <strong>Date:</strong>
+    <h5>Date:</h5>
     <%= @shift.date.strftime("%m/%d/%Y") %>
   </p>
 
   <p>
-    <strong>Start Time:</strong>
+    <h5>Start Time:</h5>
     <%= @shift.start.strftime("%l:%M %P") %>
   </p>
 
   <p>
-    <strong>End Time:</strong>
+    <h5>End Time:</h5>
     <%= @shift.end.strftime("%l:%M %P") %>
   </p>
 
   <p>
-    <strong>Status:</strong>
+    <h5>Status:</h5>
     <%= @shift.status.capitalize %>
   </p>
 
   <% if @shift.request_by.length > 0 %>
-    <p>Requested By:</p>
+    <h5>Requested By:</h5>
     <% @shift.request_by.each do |name| %>
       <p><%= name %></p>
     <% end %>
@@ -40,19 +42,29 @@
     <p>Nobody has requested this shift yet.</p>
   <% end %>
 
+  <br>
 
-  <% if policy(@shift).destroy? %>
-    <%= link_to 'Edit', edit_shift_path(@shift) %>
-    <br>
-    <br>
-      <%= link_to 'Delete', shift_path(@shift),
+  <div id="wrapper">
+    <div>
+      <%= link_to 'View All Shifts', shifts_path, :class => "btn btn-outline-info" %>
+    </div>
+
+    <div>
+      <% if !current_user.admin? && @shift[:status] != "assigned"%>
+        <%= link_to 'Request This Shift', edit_shift_path(@shift), :class => "btn btn-outline-success" %>
+      <% end %>
+    </div>
+
+    <% if policy(@shift).destroy? %>
+      <div>
+        <%= link_to 'Edit This Shift', edit_shift_path(@shift), :class => "btn btn-outline-info" %>
+      </div>
+      <div>
+        <%= link_to 'Delete This Shift', shift_path(@shift),
             method: :delete,
             data: { confirm: 'Are you sure?' },
-            :id => "delete"%>
-  <% end %>
-
-  <br>
-  <br>
-
-  <%= link_to 'All Shifts', shifts_path %>
+            :class => "btn btn-outline-danger"%>
+      </div>
+    <% end %>
+  </div>
 </div>
