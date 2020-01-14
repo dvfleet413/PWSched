@@ -1,0 +1,94 @@
+<%= render 'shared/navbar' %>
+<div class="container">
+  <h1>Help</h1>
+
+  <% if current_user %>
+    <h6>Hello <%="#{current_user[:name]}"%>! Let's see if we can help you out!</h6>
+  <% else %>
+    <h4>Hello! Let's see if we can help you out!</h4>
+  <% end %>
+  <br>
+  <a href="#create-account">Create Account</a><br>
+  <a href="#create-cong">Create Congregation</a><br>
+  <a href="#request-shift">Request Shift</a><br>
+  <a href="#create-shift">Create Shift</a><br>
+  <a href="#assign-shift">Assign Shift</a><br>
+
+  <br>
+  <br>
+
+  <h4 id="create-account">Create an Account (Join an Existing Congregation)</h4>
+    <p>If you are a public witnessing volunteer and your congregation
+      already uses PWSched, follow these steps to join your congregation's
+      account:</p>
+    <ol>
+      <li>Click "<%= link_to('Register', new_user_registration_path) %>" in the top menu</li>
+      <li>Type your first and last name in the "Name" field.</li>
+      <li>Select your congregation from the dropdown menu.  If you don't see your
+        congregation in the menu, that means your congregation is not yet set up
+        on PWSched. Please ask your Service Overseer/scheduler to
+        <a href="mailto:dvfleet413@gmail.com">Contact Us</a>.</li>
+      <li>Enter your email.  This will be used as your username.</li>
+      <li>Enter a password.</li>
+      <li>Re-enter the password to confirm it.</li>
+      <li>Click "Sign up". you will automatically be logged in.</li>
+    </ol>
+
+  <br>
+  <br>
+
+  <h4 id="create-cong">Create a New Congregation</h4>
+    <p>During beta testing, we do not currently allow users to create their own
+      congreagtion account.  If you are interested in creating an account for
+      your congregation, please <a href="mailto:dvfleet413@gmail.com">Contact Us</a>.</p>
+
+  <br>
+  <br>
+
+  <h4 id="request-shift">Request a Shift</h4>
+    <p>To view all shifts for your congregation, click the <%= link_to 'PWSched link', shifts_path %> in the top menu, or click
+      the "View Shifts" link wherever you see it. Once you see the list of shifts, you
+      can do the following to help you find the shift you want:</p>
+      <ul>
+        <li>Filter shifts based on what you're available for.  For example,
+          use the "Location" dropdown menu to select the specific location
+          you are looking for. (make sure to click "Search" to actually filter
+          the shifts!). Or search by volunteer to get a list of shifts you're
+          already assigned to.</li>
+        <li>Sort the list of shifts. If the title column is blue (Volunteer,
+          Location, Date, and Status), you can click on it to sort the shifts.
+          This can help you find shifts you'd like.</li>
+      </ul>
+    <p> Once you've found a shift that you'd like to work, click on the "Request"
+      link at the far right end of the row. You will be brought to a page showing the details
+      of the shift.  To confirm you want the shift, click the button that says "Here I am! Send me!"
+      This will let your overseer know you are available, and he will confirm with you if you are
+      assigned to the shift or not.</p>
+    <p> If you see a shift you want, but there is no "Request" link, it means the shift has already
+      been assigned to another volunteer.</p>
+
+  <br>
+  <br>
+
+  <h4 id="create-shift">Create Shift (Admins Only)</h4>
+  <p>If you are the administrator for your congregation's account, you can create new shifts.
+      Navigate to the <%= link_to 'list of shifts', shifts_path %> and click "Add Shift" at the bottom of the list
+      of shifts.  Carefully enter the information for the shift.  If the shift is already assigned,
+      make sure to type the volunteer's name into the "Volunteer" field and check the "Assigned" buttom to prevent
+      confusion for volunteers (if you don't enter a name for the volunteer or mark it as assigned, volunteers will
+      see a "Request" link for the shift).</p>
+  <p>If the shift has not yet been assigned, leave the "Volunteer" field blank and mark the shift as "Available"
+    to make sure volunteers can see that it is available.</p>
+
+  <br>
+  <br>
+
+  <h4 id="assign-shift">Assign Shift (Admins Only)</h4>
+  <p>When a volunteer requests a shift, the shift's status will automatically be reset to "Requested" and the volunteer's
+    name will be added to the "Requested By:" list you see when you view the shift.  In order to assign a volunteer to the
+    shift, you must click the "Edit" link, type in the volunteer's name, and set the "Status" field to "Assigned." We hope
+    to automate this process in future releases.</p>
+
+
+
+</div>

@@ -2,7 +2,6 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
 require 'pry'
-
    before_action :configure_sign_up_params, only: [:create]
    before_action :configure_account_update_params, only: [:update]
 
@@ -15,8 +14,9 @@ require 'pry'
    def create
      super
      @congregation = Congregation.new(:name => @user[:congregation])
-     @congregation.save
-     binding.pry
+     all_congregations = []
+     Congregation.all.map {|cong| all_congregations << cong[:name]}
+     @congregation.save if !all_congregations.include?(@congregation[:name])
    end
 
    #GET /resource/edit

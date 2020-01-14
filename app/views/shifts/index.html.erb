@@ -45,7 +45,8 @@
         <% if policy(shift).destroy? %>
           <td><%= link_to 'Delete', shift_path(shift),
                                     method: :delete,
-                                    data: { confirm: 'Are you sure?' }%></td>
+                                    data: { confirm: 'Are you sure?' },
+                                    :id => "delete"%></td>
         <% end %>
       </tr>
     <% end %>
