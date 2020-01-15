@@ -4,8 +4,18 @@
   <h1>View Shift</h1>
 
   <p>
-    <h5>Volunteer:</h5>
+    <h5>Shift ID:</h5>
+    <%= @shift.id %>
+  </p>
+
+  <p>
+    <h5>Volunteer 1:</h5>
     <%= @shift.volunteer %>
+  </p>
+
+  <p>
+    <h5>Volunteer 2:</h5>
+    <%= @shift.volunteer_two %>
   </p>
 
   <p>
@@ -43,12 +53,22 @@
         <div>
         <% if current_user.admin? %>
           <%= form_with(model: @shift, local: true) do |form| %>
-            <%= form.hidden_field :volunteer, :value => name %>
+            <% if @shift[:volunteer] == "" || !@shift[:volunteer]  %>
+              <%= form.hidden_field :volunteer, :value => name %>
+              <%= form.hidden_field :volunteer_two, :value => @shift[:volunteer_two] %>
+            <% elsif @shift[:volunteer_two] == "" || !@shift[:volunteer_two] %>
+              <%= form.hidden_field :volunteer, :value => @shift[:volunteer] %>
+              <%= form.hidden_field :volunteer_two, :value => name %>
+            <% end %>
             <%= form.hidden_field :location, :value => @shift[:location]%>
             <%= form.hidden_field :date, :value => @shift[:date]%>
             <%= form.hidden_field :start, :value => @shift[:start]%>
             <%= form.hidden_field :end, :value => @shift[:end]%>
-            <%= form.hidden_field :status, :value => "assigned"%>
+            <% if @shift[:volunteer] == "" || !@shift[:volunteer]  %>
+              <%= form.hidden_field :status, :value => "requested"%>
+            <% else %>
+              <%= form.hidden_field :status, :value => "assigned"%>
+            <% end %>
             <%= form.submit "Assign", :class => "btn btn-success" %>
           <% end %>
         <% end %>

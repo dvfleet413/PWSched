@@ -6,8 +6,8 @@
   <%= search_form_for @search do |f| %>
     <div class ="field">
       <h4>Filter by:</h4>
-      <%= f.label :volunteer_cont, "Volunteer:" %>
-      <%= f.select :volunteer_cont, Shift.all.collect{|shift| shift[:volunteer]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
+      <%= f.label :volunteer_or_volunteer_two_cont, "Volunteer:" %>
+      <%= f.select :volunteer_or_volunteer_two_cont, Shift.all.collect{|shift| shift[:volunteer]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
       <%= f.label :location_cont, "Location:" %>
       <%= f.select :location_cont, Shift.all.collect{|shift| shift[:location]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
     </div>
@@ -16,11 +16,10 @@
   </div>
   <table class="table table-hover table-striped table-responsive-xl">
     <tr>
-      <th><%= sort_link @search, :volunteer, "Volunteer" %></th>
+      <th><%= sort_link @search, :volunteer, "Volunteer 1" %></th>
+      <th><%= sort_link @search, :volunteer_two, "Volunteer 2" %></th>
       <th><%= sort_link @search, :location, "Location" %></th>
       <th><%= sort_link @search, :date, "Date" %></th>
-      <th>Start Time</th>
-      <th>End Time</th>
       <th><%= sort_link @search, :status, "Status" %></th>
       <th colspan = "3"></th>
     </tr>
@@ -28,21 +27,30 @@
     <% @shifts.each do |shift| %>
     <% if shift[:congregation] == current_user[:congregation] %>
       <tr>
-        <td><%= shift.volunteer %></td>
+        <% if !current_user.admin? %>
+          <% if shift.volunteer != "" && shift.volunteer %>
+            <td><%= shift.volunteer %></td>
+          <% else %>
+            <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
+          <% end %>
+        <% else %>
+          <td><%= shift.volunteer %></td>
+        <% end %>
+        <% if !current_user.admin? %>
+          <% if shift.volunteer_two != "" && shift.volunteer_two %>
+            <td><%= shift.volunteer_two %></td>
+          <% else %>
+            <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
+          <% end %>
+        <% else %>
+          <td><%= shift.volunteer_two %></td>
+        <% end %>
         <td><%= shift.location %></td>
-        <td><%= shift.date.strftime("%A %m/%d/%Y") %></td>
-        <td><%= shift.start.strftime("%l:%M %P") %></td>
-        <td><%= shift.end.strftime("%l:%M %P") %></td>
+        <td><%= shift.date.strftime("%a %m/%d") %>, <%= shift.start.strftime("%l:%M %P") %> - <%= shift.end.strftime("%l:%M %P") %></td>
         <td><%= shift.status.capitalize %></td>
         <td><%= link_to 'View', shift_path(shift), :class => "btn btn-info" %></td>
         <% if current_user.admin? %>
           <td><%= link_to 'Edit', edit_shift_path(shift), :class => "btn btn-info" %></td>
-        <% else %>
-          <% if shift.volunteer == "" && !shift.request_by.include?(current_user[:name]) %>
-            <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
-          <% else %>
-            <td></td>
-          <% end %>
         <% end %>
         <% if policy(shift).destroy? %>
           <td><%= link_to 'Delete', shift_path(shift),

@@ -18,7 +18,14 @@
     <%= form.label :volunteer %>
   </h5>
   <p>
-    <%= form.text_field :volunteer %>
+    <%= form.select :volunteer, User.all.collect {|user| user[:name]}, include_blank: true %>
+  </p>
+
+  <h5>
+    <%= form.label :volunteer_two %>
+  </h5>
+  <p>
+    <%= form.select :volunteer_two, User.all.collect {|user| user[:name]}, include_blank: true %>
   </p>
 
   <h5>
