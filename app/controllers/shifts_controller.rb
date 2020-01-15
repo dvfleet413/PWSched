@@ -39,7 +39,6 @@ def update
   @shift.request_by.clear if @shift.status =="assigned"
 
   if @shift.update(shift_params)
-    binding.pry
     ShiftMailer.shift_assigned_email(@shift).deliver_now if @shift[:status] == "assigned"
     redirect_to @shift
   else
