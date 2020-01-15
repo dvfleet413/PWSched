@@ -14,6 +14,7 @@ require 'pry'
    def create
      super
      UserMailer.welcome_email(@user).deliver_now
+     UserMailer.new_user_email(@user).deliver_now
      @congregation = Congregation.new(:name => @user[:congregation])
      all_congregations = []
      Congregation.all.map {|cong| all_congregations << cong[:name]}
