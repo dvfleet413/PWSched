@@ -1,5 +1,4 @@
 class ShiftsController < ApplicationController
-require 'pry'
 before_action :authenticate_user!
 
 def index
@@ -39,8 +38,11 @@ def update
   @shift.request_by.clear if @shift.status =="assigned"
 
   if @shift.update(shift_params)
-    binding.pry
-    ShiftMailer.shift_assigned_email(@shift).deliver_now if @shift[:status] == "assigned"
+    if @shift[:status] == "assigned"
+      ShiftMailer.shift_assigned_email(@shift).deliver_now
+    elsif @shift[:status] == "requested"
+      ShiftMailer.shift_requested_email(@shift).deliver_now
+    end
     redirect_to @shift
   else
     render 'edit'
@@ -59,24 +61,20 @@ def destroy
   end
 end
 
-def add_request
-  request_list = @shift[:request_by]
-  volunteer = current_user[:name]
-  request_list << volunteer
-  request_list.uniq!
-  @shift[:status] = "requested" if @shift[:status] == "available"
-end
 
-def deny_request(shift, name)
-  request_list = shift[:request_by]
-  index = request_list.index(name)
-  request_list.delete_at(index)
-  request_list
-end
 
 private
   def shift_params
     params.require(:shift).permit(:volunteer, :location, :date, :start, :end, :status, :congregation, {:request_by => []})
   end
+
+  def add_request
+    request_list = @shift[:request_by]
+    volunteer = current_user[:name]
+    request_list.unshift(volunteer)
+    request_list.uniq!
+    @shift[:status] = "requested" if @shift[:status] == "available"
+  end
+
 
 end

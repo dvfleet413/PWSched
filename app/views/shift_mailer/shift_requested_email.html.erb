@@ -1,0 +1,21 @@
+<h1>Hello <%= @user[:name] %>! </h1>
+<h2><%= @shift[:request_by][0] %> just requested a shift!</h2>
+
+<p>Here are the details about the requested shift...</p>
+
+<h5>Location:</h5>
+<p><%= @shift[:location] %></p>
+
+<h5>Date:</h5>
+<p><%= @shift[:date].strftime("%m/%d/%Y") %></p>
+
+<h5>Start Time:</h5>
+<p><%= @shift[:start].strftime("%l:%M %P") %></p>
+
+<h5>End Time:</h5>
+<p><%= @shift[:end].strftime("%l:%M %P") %></p>
+
+<h5>Requested By:</h5>
+<% @shift.request_by.each do |name| %>
+  <p><%= name %></p>
+<% end %>

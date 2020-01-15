@@ -38,7 +38,7 @@
         <% if current_user.admin? %>
           <td><%= link_to 'Edit', edit_shift_path(shift), :class => "btn btn-info" %></td>
         <% else %>
-          <% if shift.volunteer == "" %>
+          <% if shift.volunteer == "" && !shift.request_by.include?(current_user[:name]) %>
             <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
           <% else %>
             <td></td>
