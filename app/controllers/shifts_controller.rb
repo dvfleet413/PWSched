@@ -1,4 +1,5 @@
 class ShiftsController < ApplicationController
+require 'pry'
 before_action :authenticate_user!
 
 def index
@@ -33,9 +34,13 @@ def update
   if !current_user.admin?
     add_request
   end
+
   @shift.update(shift_params)
   @shift.request_by.clear if @shift.status =="assigned"
+
   if @shift.update(shift_params)
+    binding.pry
+    ShiftMailer.shift_assigned_email(@shift).deliver_now if @shift[:status] == "assigned"
     redirect_to @shift
   else
     render 'edit'

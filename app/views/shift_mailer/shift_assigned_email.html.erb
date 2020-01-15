@@ -1,0 +1,16 @@
+<h1>Hello <%= @user[:name] %>! <br>
+  You've been assigned a public witnessing shift!</h1>
+
+<p>Here are the details about your upcoming shift...</p>
+
+<h5>Location:</h5>
+<p><%= @shift[:location] %></p>
+
+<h5>Date:</h5>
+<p><%= @shift[:date].strftime("%m/%d/%Y") %></p>
+
+<h5>Start Time:</h5>
+<p><%= @shift[:start].strftime("%l:%M %P") %></p>
+
+<h5>End Time:</h5>
+<p><%= @shift[:end].strftime("%l:%M %P") %></p>
