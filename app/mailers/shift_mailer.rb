@@ -7,10 +7,7 @@ class ShiftMailer < ApplicationMailer
     user_id = nil
     User.all.map { |user| user_id = user[:id] if user[:name] == user_name }
     @user = User.find(user_id)
-<<<<<<< HEAD
-=======
 
->>>>>>> send-email-upon-shift-request
     #Send email
     mail(to: @user[:email], subject: 'New PW Shift Assigned!') if user_id
   end
