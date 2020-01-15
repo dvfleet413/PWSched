@@ -67,7 +67,9 @@
 
     <div>
       <% if !current_user.admin? && @shift[:status] != "assigned"%>
-        <%= link_to 'Request This Shift', edit_shift_path(@shift), :class => "btn btn-outline-success" %>
+        <% if !@shift[:request_by].include?(current_user[:name]) %>
+          <%= link_to 'Request This Shift', edit_shift_path(@shift), :class => "btn btn-outline-success" %>
+        <% end %>
       <% end %>
     </div>
 
