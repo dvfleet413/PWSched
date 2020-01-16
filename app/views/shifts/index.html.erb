@@ -3,19 +3,7 @@
 <div class="container">
   <h1>Shifts</h1>
   <div id="search-wrapper">
-  <%= search_form_for @search do |f| %>
-    <div class ="field">
-      <h4>Filter by:</h4>
-      <% volunteer_one_array = Shift.all.collect{|shift| shift[:volunteer]} %>
-      <% volunteer_two_array = Shift.all.collect{|shift| shift[:volunteer_two]} %>
-      <% volunteer_array = volunteer_one_array.concat(volunteer_two_array).uniq! %>
-      <%= f.label :volnteer_or_volunteer_two_cont, "Volunteer:" if volunteer_array %>
-      <%= f.select :volunteer_or_volunteer_two_cont, volunteer_array, include_blank: "All" if volunteer_array %>
-      <%= f.label :location_cont, "Location:" %>
-      <%= f.select :location_cont, Shift.all.collect{|shift| shift[:location]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
-    </div>
-    <div class="actions"><%= f.submit "Search", :class => "btn btn-primary" %></div>
-  <% end %>
+    <%= render 'filter' %>
   </div>
   <table class="table table-hover table-striped table-responsive">
     <tr>
@@ -28,41 +16,41 @@
     </tr>
 
     <% @shifts.each do |shift| %>
-    <% if shift[:congregation] == current_user[:congregation] %>
-      <tr>
-        <% if !current_user.admin? %>
-          <% if shift.volunteer != "" && shift.volunteer %>
+      <% if shift[:congregation] == current_user[:congregation] %>
+        <tr>
+          <% if !current_user.admin? %>
+            <% if shift.volunteer != "" && shift.volunteer %>
+              <td><%= shift.volunteer %></td>
+            <% else %>
+              <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
+            <% end %>
+          <% else %>
             <td><%= shift.volunteer %></td>
-          <% else %>
-            <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
           <% end %>
-        <% else %>
-          <td><%= shift.volunteer %></td>
-        <% end %>
-        <% if !current_user.admin? %>
-          <% if shift.volunteer_two != "" && shift.volunteer_two %>
+          <% if !current_user.admin? %>
+            <% if shift.volunteer_two != "" && shift.volunteer_two %>
+              <td><%= shift.volunteer_two %></td>
+            <% else %>
+              <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
+            <% end %>
+          <% else %>
             <td><%= shift.volunteer_two %></td>
-          <% else %>
-            <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
           <% end %>
-        <% else %>
-          <td><%= shift.volunteer_two %></td>
-        <% end %>
-        <td><%= shift.location %></td>
-        <td><%= shift.date.strftime("%a %m/%d") %>, <%= shift.start.strftime("%l:%M %P") %> - <%= shift.end.strftime("%l:%M %P") %></td>
-        <td><%= shift.status.capitalize %></td>
-        <td><%= link_to 'View', shift_path(shift), :class => "btn btn-info" %></td>
-        <% if current_user.admin? %>
-          <td><%= link_to 'Edit', edit_shift_path(shift), :class => "btn btn-info" %></td>
-        <% end %>
-        <% if policy(shift).destroy? %>
-          <td><%= link_to 'Delete', shift_path(shift),
-                                    method: :delete,
-                                    data: { confirm: 'Are you sure?' },
-                                    :class => "btn btn-danger"%></td>
-        <% end %>
-      </tr>
-    <% end %>
+          <td><%= shift.location %></td>
+          <td><%= shift.date.strftime("%a %m/%d") %>, <%= shift.start.strftime("%l:%M %P") %> - <%= shift.end.strftime("%l:%M %P") %></td>
+          <td><%= shift.status.capitalize %></td>
+          <td><%= link_to 'View', shift_path(shift), :class => "btn btn-info" %></td>
+          <% if current_user.admin? %>
+            <td><%= link_to 'Edit', edit_shift_path(shift), :class => "btn btn-info" %></td>
+          <% end %>
+          <% if policy(shift).destroy? %>
+            <td><%= link_to 'Delete', shift_path(shift),
+                                      method: :delete,
+                                      data: { confirm: 'Are you sure?' },
+                                      :class => "btn btn-danger"%></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
   </table>
 
@@ -71,4 +59,3 @@
   <% if policy(@shifts).new? %>
     <%= link_to 'Add Shift', new_shift_path, :class => "btn btn-primary"%>
   <% end %>
-</div>

@@ -27,9 +27,15 @@
   margin: 30px;
 }
 
+
+div#search-wrapper {
+  display: inline-block;
+}
+
 div#search-wrapper div {
   display: inline-block;
   margin: 10px;
+  text-align: center;
 }
 
 div#wrapper div {
@@ -39,7 +45,7 @@ div#wrapper div {
 
 
 .apple_pagination {
-  background: #f1f1f1;
+  background: #f2f2f2;
   border: 1px solid #e5e5e5;
   text-align: center;
   padding: 1em;
