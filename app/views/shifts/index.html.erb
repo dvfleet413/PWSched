@@ -37,7 +37,7 @@
             <td><%= shift.volunteer_two %></td>
           <% end %>
           <td><%= shift.location %></td>
-          <td><%= shift.date.strftime("%a %m/%d") %>, <%= shift.start.strftime("%l:%M %P") %> - <%= shift.end.strftime("%l:%M %P") %></td>
+          <td id="date"><%= shift.date.strftime("%a %m/%d") %>, <%= shift.start.strftime("%l:%M %P") %> - <%= shift.end.strftime("%l:%M %P") %></td>
           <td><%= shift.status.capitalize %></td>
           <td><%= link_to 'View', shift_path(shift), :class => "btn btn-info" %></td>
           <% if current_user.admin? %>
