@@ -1,6 +1,5 @@
 <%= search_form_for @search do |f| %>
   <div class ="field">
-    <div><h5>Filter Shifts by:</h5></div>
     <div>
       <% volunteer_one_array = Shift.all.collect{|shift| shift[:volunteer]} %>
       <% volunteer_two_array = Shift.all.collect{|shift| shift[:volunteer_two]} %>
