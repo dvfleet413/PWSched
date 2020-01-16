@@ -6,15 +6,18 @@
   <%= search_form_for @search do |f| %>
     <div class ="field">
       <h4>Filter by:</h4>
-      <%= f.label :volunteer_or_volunteer_two_cont, "Volunteer:" %>
-      <%= f.select :volunteer_or_volunteer_two_cont, Shift.all.collect{|shift| shift[:volunteer]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
+      <% volunteer_one_array = Shift.all.collect{|shift| shift[:volunteer]} %>
+      <% volunteer_two_array = Shift.all.collect{|shift| shift[:volunteer_two]} %>
+      <% volunteer_array = volunteer_one_array.concat(volunteer_two_array).uniq! %>
+      <%= f.label :volnteer_or_volunteer_two_cont, "Volunteer:" if volunteer_array %>
+      <%= f.select :volunteer_or_volunteer_two_cont, volunteer_array, include_blank: "All" if volunteer_array %>
       <%= f.label :location_cont, "Location:" %>
       <%= f.select :location_cont, Shift.all.collect{|shift| shift[:location]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
     </div>
     <div class="actions"><%= f.submit "Search", :class => "btn btn-primary" %></div>
   <% end %>
   </div>
-  <table class="table table-hover table-striped table-responsive-xl">
+  <table class="table table-hover table-striped table-responsive">
     <tr>
       <th><%= sort_link @search, :volunteer, "Volunteer 1" %></th>
       <th><%= sort_link @search, :volunteer_two, "Volunteer 2" %></th>

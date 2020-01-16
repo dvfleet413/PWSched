@@ -35,6 +35,10 @@ def update
   end
 
   @shift.update(shift_params)
+  volunteer_one = @shift[:volunteer]
+  volunteer_two = @shift[:volunteer_two]
+  @shift.request_by.delete(volunteer_one) if @shift.request_by.include?(volunteer_one)
+  @shift.request_by.delete(volunteer_two) if @shift.request_by.include?(volunteer_two)
   @shift.request_by.clear if @shift.status =="assigned"
 
   if @shift.update(shift_params)
