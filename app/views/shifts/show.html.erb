@@ -3,40 +3,40 @@
 <div class = "container">
   <h1>View Shift</h1>
 
-  <p>
-    <h5>Volunteer 1:</h5>
-    <%= @shift.volunteer %>
-  </p>
+  <div class = "wrapper">
+    <div><h5>Volunteer 1:</h5></div>
+    <div><%= @shift.volunteer %></div>
+  </div>
 
-  <p>
-    <h5>Volunteer 2:</h5>
-    <%= @shift.volunteer_two %>
-  </p>
+  <div class = "wrapper">
+    <div><h5>Volunteer 2:</h5></div>
+    <div><%= @shift.volunteer_two %></div>
+  </div>
 
-  <p>
-    <h5>Location:</h5>
-    <%= @shift.location %>
-  </p>
+  <div class = "wrapper">
+    <div><h5>Location:</h5></div>
+    <div><%= @shift.location %></div>
+  </div>
 
-  <p>
-    <h5>Date:</h5>
-    <%= @shift.date.strftime("%m/%d/%Y") %>
-  </p>
+  <div class = "wrapper">
+    <div><h5>Date:</h5></div>
+    <div><%= @shift.date.strftime("%m/%d/%Y") %></div>
+  </div>
 
-  <p>
-    <h5>Start Time:</h5>
-    <%= @shift.start.strftime("%l:%M %P") %>
-  </p>
+  <div class = "wrapper">
+    <div><h5>Start Time:</h5></div>
+    <div><%= @shift.start.strftime("%l:%M %P") %></div>
+  </div>
 
-  <p>
-    <h5>End Time:</h5>
-    <%= @shift.end.strftime("%l:%M %P") %>
-  </p>
+  <div class = "wrapper">
+    <div><h5>End Time:</h5></div>
+    <div><%= @shift.end.strftime("%l:%M %P") %></div>
+  </div>
 
-  <p>
-    <h5>Status:</h5>
-    <%= @shift.status.capitalize %>
-  </p>
+  <div class = "wrapper">
+    <div><h5>Status:</h5></div>
+    <div><%= @shift.status.capitalize %></div>
+  </div>
 
   <% if @shift.request_by.length > 0 %>
     <h5>Requested By:</h5>

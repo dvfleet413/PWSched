@@ -1,4 +1,5 @@
 class ShiftMailer < ApplicationMailer
+  require 'pry'
   def shift_assigned_email(shift)
     @shift = shift
 
@@ -25,4 +26,11 @@ class ShiftMailer < ApplicationMailer
     mail(to: @user[:email], subject: 'New PW Shift Request!') if admin_id
 
   end
+
+  def weekly_summary_email(user, shifts)
+    @user = user
+    @shifts = shifts
+    mail(to: user[:email], subject: "This week's PW Schedule")
+  end
+
 end

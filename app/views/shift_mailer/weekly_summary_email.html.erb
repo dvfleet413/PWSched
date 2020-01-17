@@ -1,0 +1,39 @@
+<% i = 0 %>
+<% available_shifts_count = 0 %>
+<% while i < @shifts.length do %>
+  <% available_shifts_count += 1 if @shifts[i].volunteer == "" || !@shifts[i].volunteer %>
+  <% available_shifts_count += 1 if @shifts[i].volunteer_two == "" || !@shifts[i].volunteer_two %>
+  <% i += 1 %>
+<% end %>
+
+
+<h1> Hello <%= @user[:name] %>! Are you ready for public witnessing this week?</h1>
+
+<h2>Shifts This Week (<%= available_shifts_count %> available):</h2>
+
+<% i = 0 %>
+<% while i < @shifts.length do %>
+  <%# ex. Location, Da DD/MM, 0:00 - 0:00 %>
+  <h4><%= @shifts[i].location %>, <%= @shifts[i].date.strftime("%a %m/%d") %>, <%= @shifts[i].start.strftime("%l:%M %P") %> - <%= @shifts[i].end.strftime("%l:%M %P") %></h4>
+
+  <h5>Volunteer 1: </h5>
+  <% if @shifts[i].volunteer == "" || !@shifts[i].volunteer %>
+    <p style="color: green;"><strong>Available!</strong></p>
+  <% else %>
+    <%= @shifts[i].volunteer %>
+  <% end %>
+
+  <h5>Volunteer 2: </h5>
+  <% if @shifts[i].volunteer_two == "" || !@shifts[i].volunteer_two %>
+    <p style="color: green;"><strong>Available!</strong></p>
+  <% else %>
+    <%= @shifts[i].volunteer_two %>
+  <% end %>
+  <br />
+  <% i += 1 %>
+<% end %>
+
+<br />
+
+<p>Can you help fill any of the <%= available_shifts_count %> available shifts?</p>
+<p>Visit <a href="https://pwsched.herokuapp.com/shifts">PWSched</a> to request shifts!</p>

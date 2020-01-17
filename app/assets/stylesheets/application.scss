@@ -38,6 +38,11 @@ div#wrapper div {
   margin: 10px;
 }
 
+div.wrapper div {
+  display: inline-block;
+  margin: 10px;
+}
+
 td#date {
   white-space: nowrap;
 }
