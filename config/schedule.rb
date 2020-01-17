@@ -18,3 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every :sunday, at: '12pm' do
+  rake "reminders:weekly_summary"
+end
