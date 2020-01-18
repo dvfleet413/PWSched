@@ -23,6 +23,6 @@ every :sunday, at: '12pm' do
   rake "reminders:weekly_summary"
 end
 
-every 1.day, at: '10:30 pm'
+every 1.day, at: '10:30 pm' do
   rake "reminders:night_before"
 end
