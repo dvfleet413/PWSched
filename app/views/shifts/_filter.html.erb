@@ -6,6 +6,7 @@
       <% volunteer_array = volunteer_one_array.concat(volunteer_two_array).uniq %>
       <%= f.label :volnteer_or_volunteer_two_cont, "Volunteer:"%>
       <%= f.select :volunteer_or_volunteer_two_cont, volunteer_array, include_blank: "All"%>
+      <br />
       <%= f.label :location_cont, "Location:" %>
       <%= f.select :location_cont, Shift.all.collect{|shift| shift[:location]}.map{|i| i.capitalize}.uniq, include_blank: "All" %>
     </div>

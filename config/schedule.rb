@@ -19,10 +19,12 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :sunday, at: '12pm' do
+#Server is on GMT - Times are 5 hours ahead
+
+every :sunday, at: '7:00 am' do
   rake "reminders:weekly_summary"
 end
 
-every 1.day, at: '10:30 pm' do
+every 1.day, at: '3:45 am' do
   rake "reminders:night_before"
 end
