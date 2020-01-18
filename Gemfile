@@ -36,7 +36,6 @@ gem "pundit"
 gem 'pry', '~> 0.12.2'
 gem 'will_paginate', '~> 3.0'
 gem 'ransack'
-gem 'whenever', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
