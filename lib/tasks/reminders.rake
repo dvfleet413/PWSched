@@ -18,8 +18,23 @@ namespace :reminders do
     end
   end
 
-  desc "TODO"
+  desc "Send reminder if user has shift next day"
   task night_before: :environment do
+    #iterate through each Congregation
+    Congregation.all.map do |cong|
+      #create an array of all shifts for the congregation
+      shifts = Shift.all.map {|shift| shift if shift[:congregation] == cong[:name]}
+      #limit shifts to only those next day - @shift[:date] < Date.today + 1
+      shifts.select! {|shift| shift[:date] == Date.today + 1}
+      #create an array of all users in the congregation
+      users = User.all.map {|user| user if user[:congregation] == cong[:name]}
+      #iterate through users, only include shifts assigned to that user
+      users.each do |user|
+        @user = user
+        @shifts = shifts.select {|shift| shift[:volunteer] == user[:name] || shift[:volunteer_two] == user[:name]}
+        ShiftMailer.reminder_email(@user, @shifts).deliver_now
+      end
+    end
   end
 
 end

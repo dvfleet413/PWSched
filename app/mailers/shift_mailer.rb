@@ -1,5 +1,4 @@
 class ShiftMailer < ApplicationMailer
-  require 'pry'
   def shift_assigned_email(shift)
     @shift = shift
 
@@ -33,4 +32,9 @@ class ShiftMailer < ApplicationMailer
     mail(to: user[:email], subject: "This week's PW Schedule")
   end
 
+  def reminder_email(user, shifts)
+    @user = user
+    @shifts = shifts
+    mail(to: user[:email], subject: "You have a PW shift tomorrow!") if @shifts.length > 0
+  end
 end

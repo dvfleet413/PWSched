@@ -66,6 +66,8 @@ def destroy
   end
 end
 
+
+
 private
   def shift_params
     params.require(:shift).permit(:volunteer, :volunteer_two, :location, :date, :start, :end, :status, :congregation, {:request_by => []})

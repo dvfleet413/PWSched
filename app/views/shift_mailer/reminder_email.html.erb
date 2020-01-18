@@ -1,0 +1,13 @@
+<h1>Hello <%= @user[:name]%>! You have a Public Witnessing shift tomorrow!</h1>
+
+<h2>Shift Details:</h2>
+
+<% @shifts.each do |shift| %>
+  <h4><%= shift[:location] %>, <%= shift[:date].strftime("%a %m/%d") %>, <%= shift[:start].strftime("%l:%M %P") %> - <%= shift[:end].strftime("%l:%M %P") %></h4>
+  <h5>Volunteer 1: </h5>
+  <p><%= shift[:volunteer] %></p>
+  <h5>Volunteer 2: </h5>
+  <p><%= shift[:volunteer_two]%></p>
+<% end %>
+
+<p>Thanks for participating!</p>
