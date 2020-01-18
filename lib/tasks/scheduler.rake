@@ -42,3 +42,9 @@ task night_before: :environment do
     end
   end
 end
+
+desc "Remove past shifts from database"
+task delete_old_shifts: :environment do
+  puts "removing past shifts..."
+  Shift.all.map {|shift| shift.delete if shift[:date] < Date.today }
+end
