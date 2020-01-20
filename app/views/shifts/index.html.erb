@@ -2,10 +2,10 @@
 
 <div class="container">
   <h1>Shifts</h1>
-  <a href="#calendar">Go To Calendar View</a>
   <br />
   <%= render 'list_view' %>
   <% if policy(@shifts).new? %>
     <%= link_to 'Add Shift', new_shift_path, :class => "btn btn-primary"%>
   <% end %>
-  <%= render 'calendar_view' %>
+
+  <%# render 'calendar_view' %>
