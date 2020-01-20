@@ -1,0 +1,35 @@
+<%= render 'shared/navbar' %>
+
+<div class = "container">
+  <h1>Shifts - Calendar View</h1>
+  <h4><%= link_to 'List View', shifts_path %></h4>
+  <br />
+  <%= search_form_for @search, url: calendar_path, method: :get do |f| %>
+    <div class ="field">
+      <div>
+          <%= f.label :location_cont, "Location:" %>
+          <%= f.select :location_cont, Shift.all.collect{|shift| shift[:location]}.uniq, include_blank: "All" %>
+      </div>
+    </div>
+    <div class="actions"><%= f.submit "Filter Shifts", :class => "btn btn-primary" %></div>
+  <% end %>
+
+  <div id="calendar">
+    <div class = "container">
+      <div class = "table-responsive table-fixed">
+        <% if @shifts.length > 0 %>
+          <%= month_calendar events: @shifts, prev_text: 'prev', next_text: 'next' do |date, shifts| %>
+            <%= date.day %>
+
+            <% shifts.each do |shift| %>
+              <div>
+                <%= link_to "#{shift.location}", shift_path(shift), id: "calendar-item" %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

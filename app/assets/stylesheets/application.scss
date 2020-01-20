@@ -11,10 +11,12 @@
  * It is generally better to create a new file per style scope.
  *
  *= require simple_calendar
+ *= require font-awesome
  */
 
 
  @import "bootstrap";
+ @import "font-awesome";
 
  .navbar-nav > li{
   padding-left:5px;
@@ -26,8 +28,30 @@
   padding: 10px;
 }
 
+.calendar-heading span {
+  padding: 10px;
+}
+
 .calendar-title {
   font-size: 1.5em;
+}
+
+table.calendar{
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.calendar td {
+  width: 14%;
+  overflow: hidden;
+}
+
+td.day.today.start-date.current-month {
+  background: #acc8f1;
+}
+
+#calendar-item {
+    white-space: nowrap;
 }
 
 .notice, .alert {
