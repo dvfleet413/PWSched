@@ -2,64 +2,10 @@
 
 <div class="container">
   <h1>Shifts</h1>
-  <div id="search-wrapper">
-    <%= render 'filter' %>
-  </div>
-  <table class="table table-hover table-striped table-responsive">
-    <tr>
-      <th><%= sort_link @search, :volunteer, "Volunteer 1" %></th>
-      <th><%= sort_link @search, :volunteer_two, "Volunteer 2" %></th>
-      <th><%= sort_link @search, :location, "Location" %></th>
-      <th><%= sort_link @search, :date, "Date" %></th>
-      <% if current_user.admin? %>
-        <th><%= sort_link @search, :status, "Status" %></th>
-      <% end %>
-      <th colspan = "3"></th>
-    </tr>
-
-    <% @shifts.each do |shift| %>
-      <% if shift[:congregation] == current_user[:congregation] %>
-        <tr>
-          <% if !current_user.admin? %>
-            <% if shift.volunteer != "" && shift.volunteer %>
-              <td id="volunteer"><%= shift.volunteer %></td>
-            <% else %>
-              <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
-            <% end %>
-          <% else %>
-            <td id="volunteer"><%= shift.volunteer %></td>
-          <% end %>
-          <% if !current_user.admin? %>
-            <% if shift.volunteer_two != "" && shift.volunteer_two %>
-              <td id="volunteer-two"><%= shift.volunteer_two %></td>
-            <% else %>
-              <td><%= link_to 'Request', edit_shift_path(shift), :class => "btn btn-success" %></td>
-            <% end %>
-          <% else %>
-            <td id="volunteer-two"><%= shift.volunteer_two %></td>
-          <% end %>
-          <td id="location"><%= shift.location %></td>
-          <td id="date"><%= shift.date.strftime("%a %m/%d") %>, <%= shift.start.strftime("%l:%M %P") %> - <%= shift.end.strftime("%l:%M %P") %></td>
-          <% if current_user.admin? %>
-            <td><%= shift.status.capitalize if shift.status %></td>
-          <% end %>
-          <td><%= link_to 'View', shift_path(shift), :class => "btn btn-info" %></td>
-          <% if current_user.admin? %>
-            <td><%= link_to 'Edit', edit_shift_path(shift), :class => "btn btn-info" %></td>
-          <% end %>
-          <% if policy(shift).destroy? %>
-            <td><%= link_to 'Delete', shift_path(shift),
-                                      method: :delete,
-                                      data: { confirm: 'Are you sure?' },
-                                      :class => "btn btn-danger"%></td>
-          <% end %>
-        </tr>
-      <% end %>
-    <% end %>
-  </table>
-
-  <%= will_paginate @shifts, :class => "apple_pagination"%>
-
+  <a href="#calendar">Go To Calendar View</a>
+  <br />
+  <%= render 'list_view' %>
   <% if policy(@shifts).new? %>
     <%= link_to 'Add Shift', new_shift_path, :class => "btn btn-primary"%>
   <% end %>
+  <%= render 'calendar_view' %>

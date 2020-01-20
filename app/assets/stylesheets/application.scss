@@ -10,13 +10,24 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require simple_calendar
  */
+
 
  @import "bootstrap";
 
  .navbar-nav > li{
   padding-left:5px;
   padding-right:5px;
+}
+
+.calendar-heading {
+  text-align: center;
+  padding: 10px;
+}
+
+.calendar-title {
+  font-size: 1.5em;
 }
 
 .notice, .alert {

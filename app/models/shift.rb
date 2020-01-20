@@ -3,4 +3,8 @@ class Shift < ApplicationRecord
 
   enum status: [:available, :requested, :assigned]
 
+  def start_time
+    self.date
+  end
+
 end
