@@ -18,9 +18,8 @@
     <div class = "container">
       <div class = "table-responsive table-fixed">
         <% if @shifts.length > 0 %>
-          <%= month_calendar events: @shifts, prev_text: 'prev', next_text: 'next' do |date, shifts| %>
+          <%= month_calendar events: @shifts do |date, shifts| %>
             <%= date.day %>
-
             <% shifts.each do |shift| %>
               <div>
                 <%= link_to "#{shift.location}", shift_path(shift), id: "calendar-item" %>

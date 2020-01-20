@@ -68,8 +68,7 @@ end
 
 def calendar_view
   @search = Shift.search(params[:q])
-  @search.sorts = 'date asc' if @search.sorts.empty?
-  @shifts = @search.result.page(params[:page]).per_page(10)
+  @shifts = @search.result
 end
 
 
